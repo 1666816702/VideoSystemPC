@@ -17,16 +17,16 @@ public class ChooseFileWindow extends JFileChooser{
 
 	public ChooseFileWindow()
 	{
-		//设置可多选文件
+		//
 		this.setMultiSelectionEnabled(true);
-		//设置文件格式
-		this.setFileFilter(new FileNameExtensionFilter("文件格式","mp4","flv"));
+		//
+		this.setFileFilter(new FileNameExtensionFilter("�ļ���ʽ","mp4","flv"));
 		
 		this.showOpenDialog(this);
 	}
 	
 	/*
-	 * 重写选择文件函数
+	 * 
 	 * 
 	 */
 	public void approveSelection()
@@ -39,14 +39,14 @@ public class ChooseFileWindow extends JFileChooser{
 		{
 			FileInfo fileinfo = new FileInfo();
 			fileinfo.file = files[i];
-			fileinfo.fileStatus = "�ȴ��ϴ�";
+			fileinfo.fileStatus = "�ȴ��ϴ�";
 			fileinfo.prodrass = 0;
 			
 			fileinfoVector.add(fileinfo);
 		}
 		
 		MainFrame.fileinfoVector = fileinfoVector;
-		MainFrame.mainPanel.ftp.init();
+		MainPanel.ftp.init();
 		MainFrame.mainPanel.validate();
 		
 		super.cancelSelection();

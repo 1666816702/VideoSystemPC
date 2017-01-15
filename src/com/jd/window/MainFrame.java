@@ -2,11 +2,13 @@ package com.jd.window;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.io.File;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
 
 import com.jd.model.FileInfo;
 
@@ -16,26 +18,28 @@ public class MainFrame extends JFrame{
 	 */
 	private static final long serialVersionUID = 9101280566563643985L;
 	
-	//窗口大小
+	//
 	private static int WINDOW_WIDTH = 1000;
 	private static int WINDOW_HEIGHT = 600;
-	//窗口位置
+	//
 	private int window_X;
 	private int window_Y;
-	//窗口标题
-	private String title = "古驿平安上传客户端";
-	//窗口图标
+	//��
+	private String title = "�ͻ���";
+	//
 	private ImageIcon icon = new ImageIcon("img/window_icon.gif");
-	//主面板
+	//
 	public static MainPanel mainPanel = null;
 	
+	//
+	public static int currentUploadFile = 0;
 	//
 	public static Vector<FileInfo> fileinfoVector = null;
 	//
 	public static MainFrame mainFrame = null;
 	
 	/*
-	 * 构造函数 初始化窗口
+	 * 
 	 */
 	public MainFrame()
 	{
@@ -52,7 +56,7 @@ public class MainFrame extends JFrame{
 	}
 	
 	/*
-	 * 计算窗口显示位置
+	 * 
 	 */
 	public void setWindowLocation()
 	{
@@ -62,9 +66,15 @@ public class MainFrame extends JFrame{
 	}
 	
 	/*
-	 * 应用入口
+	 * 
 	 */
 	public static void main(String[] args) {
+		try {
+	    	UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	    }
+		
 		mainFrame = new MainFrame();
 		mainFrame.setVisible(true);
 	}

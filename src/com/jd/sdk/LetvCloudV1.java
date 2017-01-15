@@ -391,6 +391,7 @@ public class LetvCloudV1 {
         	HashMap<Object, Object> params = new HashMap<Object, Object>();
         	params.put("video_id", video_id+"");
         	params.put("size", size);
+        	//System.out.println("");
         	return makeRequest(api,params);
         }
         
@@ -711,7 +712,7 @@ public class LetvCloudV1 {
 	    	//æž„é? è¯·æ±‚URL
 	    	String resurl = "";
 	    	resurl += this.restUrl + "?" + mapToQueryString(params);
-	    	System.out.println(resurl);
+	    	//System.out.println(resurl);
 	    	return doGet(resurl);
 		}
 		

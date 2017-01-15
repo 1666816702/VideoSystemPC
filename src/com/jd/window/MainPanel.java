@@ -9,8 +9,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import com.jd.Event.TopPanelEvent;
-
 public class MainPanel extends JPanel{
 	/**
 	 * 
@@ -34,15 +32,15 @@ public class MainPanel extends JPanel{
 		JButton selectBtn = new JButton("选择文件");
 		JButton startBtn = new JButton("开始上传");
 		
-		selectBtn.addActionListener(new TopPanelEvent());
-		startBtn.addActionListener(new TopPanelEvent());
+		selectBtn.addActionListener(new FileTablePanel());
+		startBtn.addActionListener(new FileTablePanel());
 		
 		topPanel.add(selectBtn);
 		topPanel.add(startBtn);
 	}
 	
 	/*
-	 * 序号
+	 * 
 	 */
 	public void initBodyPanel()
 	{
@@ -52,6 +50,7 @@ public class MainPanel extends JPanel{
 		JPanel tableHead = new JPanel();
 		tableHead.setBorder(BorderFactory.createEtchedBorder ());
 		tableHead.setLayout(new GridLayout(1,5));
+		
 		tableHead.add(new Label("序号"));
 		tableHead.add(new Label("名称"));
 		tableHead.add(new Label("大小"));
