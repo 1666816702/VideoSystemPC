@@ -38,6 +38,8 @@ public class MainFrame extends JFrame{
 	//
 	public static MainFrame mainFrame = null;
 	
+	public static boolean isUpload = false;
+	
 	/*
 	 * 
 	 */

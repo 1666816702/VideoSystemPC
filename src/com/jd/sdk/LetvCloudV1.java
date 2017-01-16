@@ -61,6 +61,7 @@ public class LetvCloudV1 {
         	if(file_size>0){
         		params.put("file_size", file_size+"");
         	}       		
+        	
         	return makeRequest(api,params);
         }
 	    
@@ -707,6 +708,7 @@ public class LetvCloudV1 {
 			params.put("ver", this.apiVersion);
 			params.put("format", this.format);
 			params.put("api", api);
+			params.put("isdrm", 1+"");
 	    	//签名	
 			params.put("sign", generateSign(params));	
 	    	//构�?�请求URL

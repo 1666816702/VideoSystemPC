@@ -12,6 +12,7 @@ import net.sf.json.JSONObject;
 
 import com.jd.model.FileInfo;
 import com.jd.sdk.LetvCloudV1;
+import com.jd.window.FileTablePanel;
 import com.jd.window.MainFrame;
 import com.jd.window.MainPanel;
 
@@ -29,7 +30,6 @@ public class UploadThread extends Thread{
 	{
 		client = new LetvCloudV1(USER_UNIQUE, SECRET_KEY);
 		client.format = "json";
-		
 		uploadInit(MainFrame.currentUploadFile);
 	}
 	
@@ -42,6 +42,7 @@ public class UploadThread extends Thread{
 		String response;
 		try {
 			response = client.videoUploadInit(fileInfo.file.getName());
+			//System.out.println(response);
 			//
 			List<Map<String, String>> responseList = jsonStringToList(response);
 			Map<String, String> map = (Map<String, String>)responseList.get(0);
@@ -57,7 +58,7 @@ public class UploadThread extends Thread{
 				MainFrame.fileinfoVector.get(index).token = dataList.get(0).get("token");
 				
 				MainPanel.ftp.init();
-				MainFrame.mainPanel.validate();
+				MainFrame.mainPanel.ftp.validate();
 				//
 				if(!this.isAlive())
 				{
@@ -88,7 +89,9 @@ public class UploadThread extends Thread{
 			//
 			if(responseList.get(0).get("code").equals("0"))
 			{
-				//
+				//向网站服务器发送信息
+				String info = sendInfoToWebServer();
+				
 				System.out.println("完成一个");
 				MainFrame.fileinfoVector.get(MainFrame.currentUploadFile).fileStatus = "上传完成";
 				MainFrame.fileinfoVector.get(MainFrame.currentUploadFile).prodrass = 100;
@@ -99,16 +102,40 @@ public class UploadThread extends Thread{
 					uploadInit(MainFrame.currentUploadFile);
 				}
 				else{
-					System.out.println("全部上传完成");
-					this.stop();
+					//System.out.println("全部上传完成");
+					MainFrame.isUpload = false;
 					
 					MainPanel.ftp.init();
-					MainFrame.mainPanel.validate();
+					MainFrame.mainPanel.ftp.validate();
+					
+					this.stop();
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/*
+	 * 
+	 */
+	public String sendInfoToWebServer()
+	{
+		int video_id = Integer.valueOf(MainFrame.fileinfoVector.get(MainFrame.currentUploadFile).video_id);
+		String video_uuid = MainFrame.fileinfoVector.get(MainFrame.currentUploadFile).video_unique;
+		String video_name = MainFrame.fileinfoVector.get(MainFrame.currentUploadFile).file.getName();
+		
+		try {
+			//获取视频首图地址
+			String res = client.imageGet(video_id,"400_300");
+			
+			System.out.println(res);
+			
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	/*
@@ -142,23 +169,26 @@ public class UploadThread extends Thread{
 		{
 			try {
 				//
-				String res = client.doGet(MainFrame.fileinfoVector.get(MainFrame.currentUploadFile).progress_url);
-				//System.out.println(MainFrame.fileinfoVector.get(MainFrame.currentUploadFile).progress_url);
-				List<Map<String, String>> prograssList = jsonStringToList(res);
-				if(prograssList.get(0).get("code").equals("0")
-						&&prograssList.get(0).get("data").length()!=0)
+				if(MainFrame.fileinfoVector.get(MainFrame.currentUploadFile).prodrass < 100)
 				{
-					List<Map<String, String>> dataList = jsonStringToList(prograssList.get(0).get("data"));
-					int upload_size = Integer.valueOf(dataList.get(0).get("upload_size"));
-					int total_size = Integer.valueOf(dataList.get(0).get("total_size"));
+					String res = client.doGet(MainFrame.fileinfoVector.get(MainFrame.currentUploadFile).progress_url);
 					
-					MainFrame.fileinfoVector.get(MainFrame.currentUploadFile).prodrass = (upload_size/(total_size*1.0+0.01))*100;
-					
-					MainPanel.ftp.init();
-					MainFrame.mainPanel.validate();
+					List<Map<String, String>> prograssList = jsonStringToList(res);
+					if(prograssList.get(0).get("code").equals("0")
+							&&prograssList.get(0).get("data").length()!=0)
+					{
+						List<Map<String, String>> dataList = jsonStringToList(prograssList.get(0).get("data"));
+						int upload_size = Integer.valueOf(dataList.get(0).get("upload_size"));
+						int total_size = Integer.valueOf(dataList.get(0).get("total_size"));
+						
+						MainFrame.fileinfoVector.get(MainFrame.currentUploadFile).prodrass = (upload_size/(total_size*1.0+0.01))*100;
+						
+						MainPanel.ftp.init();
+						MainFrame.mainPanel.ftp.validate();
+					}
 				}
 				
-				Thread.sleep(40);
+				Thread.sleep(20);
 			} catch (UnsupportedEncodingException e1) {
 				e1.printStackTrace();
 			}catch (IllegalArgumentException e2) {
@@ -169,3 +199,4 @@ public class UploadThread extends Thread{
 		}
 	}
 }
+

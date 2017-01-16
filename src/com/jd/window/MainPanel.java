@@ -29,8 +29,8 @@ public class MainPanel extends JPanel{
 		topPanel.setBorder(BorderFactory.createEtchedBorder ());
 		topPanel.setLayout(new FlowLayout(30));
 		
-		JButton selectBtn = new JButton("é€‰æ‹©æ–‡ä»¶");
-		JButton startBtn = new JButton("å¼€å§‹ä¸Šä¼ ");
+		JButton selectBtn = new JButton("Ñ¡ÔñÎÄ¼ş");
+		JButton startBtn = new JButton("¿ªÊ¼ÉÏ´«");
 		
 		selectBtn.addActionListener(new FileTablePanel());
 		startBtn.addActionListener(new FileTablePanel());
@@ -51,11 +51,11 @@ public class MainPanel extends JPanel{
 		tableHead.setBorder(BorderFactory.createEtchedBorder ());
 		tableHead.setLayout(new GridLayout(1,5));
 		
-		tableHead.add(new Label("åºå·"));
-		tableHead.add(new Label("åç§°"));
-		tableHead.add(new Label("å¤§å°"));
-		tableHead.add(new Label("è¿›åº¦"));
-		tableHead.add(new Label("çŠ¶æ€"));
+		tableHead.add(new Label("ĞòºÅ"));
+		tableHead.add(new Label("Ãû³Æ"));
+		tableHead.add(new Label("´óĞ¡"));
+		tableHead.add(new Label("½ø¶È"));
+		tableHead.add(new Label("×´Ì¬"));
 		
 		ftp = new FileTablePanel();
 		ftp.init();
@@ -65,7 +65,7 @@ public class MainPanel extends JPanel{
 	}
 	
 	/*
-	 * æ„é€ å‡½æ•°
+	 * 
 	 */
 	public MainPanel(int width,int height)
 	{
