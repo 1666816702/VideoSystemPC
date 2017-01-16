@@ -23,8 +23,6 @@ public class FileTablePanel extends JPanel implements ActionListener{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public static boolean notUpload = true;
-	
 	public static Vector<Vector<Label>> labels = new Vector<Vector<Label>>();
 	
 	public void init()
@@ -51,7 +49,7 @@ public class FileTablePanel extends JPanel implements ActionListener{
 				
 				FileInfo fileinfo = MainFrame.fileinfoVector.get(MainFrame.currentUploadFile);
 				
-				DecimalFormat df = new DecimalFormat("##.00");
+				DecimalFormat df = new DecimalFormat("##");
 				labels.get(MainFrame.currentUploadFile).get(3).setText(df.format(fileinfo.prodrass)+"%");
 				labels.get(MainFrame.currentUploadFile).get(4).setText(fileinfo.fileStatus);
 			}
@@ -104,23 +102,27 @@ public class FileTablePanel extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(notUpload)
+		if(!MainFrame.isUpload)
 		{
 			if(e.getActionCommand().equals("选择文件"))
 			{
+				System.out.println("ok");
 				//打开文件选择器
-				MainFrame.fileinfoVector = null;
 				new ChooseFileWindow();
 			}
 			if(e.getActionCommand().equals("开始上传"))
 			{
 				if(MainFrame.fileinfoVector != null)
 				{
-					MainFrame.isUpload = true;
-					new UploadThread();
+					if(MainFrame.fileinfoVector.size() != 0)
+					{
+						System.out.println(MainFrame.fileinfoVector.size());
+						MainFrame.isUpload = true;
+						
+						new UploadThread();
+					}
 				}
 			}
 		}
-		
 	}
 }

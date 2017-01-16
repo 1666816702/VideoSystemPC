@@ -1,6 +1,7 @@
 package com.jd.Event;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -58,7 +59,7 @@ public class UploadThread extends Thread{
 				MainFrame.fileinfoVector.get(index).token = dataList.get(0).get("token");
 				
 				MainPanel.ftp.init();
-				MainFrame.mainPanel.ftp.validate();
+				MainPanel.ftp.validate();
 				//
 				if(!this.isAlive())
 				{
@@ -94,8 +95,8 @@ public class UploadThread extends Thread{
 				if(info.equals("ok"))
 				{
 					System.out.println("完成一个");
-					MainFrame.fileinfoVector.get(MainFrame.currentUploadFile).fileStatus = "上传完成";
-					MainFrame.fileinfoVector.get(MainFrame.currentUploadFile).prodrass = 100;
+					MainFrame.fileinfoVector.get(index).fileStatus = "上传完成";
+					MainFrame.fileinfoVector.get(index).prodrass = 100;
 					
 					if(index < MainFrame.fileinfoVector.size()-1)
 					{
@@ -103,12 +104,13 @@ public class UploadThread extends Thread{
 						uploadInit(MainFrame.currentUploadFile);
 					}
 					else{
-						//System.out.println("全部上传完成");
-						MainFrame.isUpload = false;
-						
 						MainPanel.ftp.init();
-						MainFrame.mainPanel.ftp.validate();
+						MainPanel.ftp.validate();
 						
+						MainFrame.fileinfoVector.removeAllElements();
+						FileTablePanel.labels.removeAllElements();
+						
+						MainFrame.isUpload = false;
 						this.stop();
 					}
 				}
@@ -130,7 +132,7 @@ public class UploadThread extends Thread{
 		
 		try {
 			String url = "http://localhost:61626/VideoManager/UploadVideo";
-			String param = "videoInfo="+video_id+"_"+video_uuid+"_"+video_name;
+			String param = "videoInfo="+video_id+"_"+video_uuid+"_"+URLEncoder.encode(video_name,"UTF-8");
 			param += "&token="+"123456789";
 			res = client.doGet(url+"?"+param);
 			
@@ -195,7 +197,7 @@ public class UploadThread extends Thread{
 						MainFrame.fileinfoVector.get(MainFrame.currentUploadFile).prodrass = (upload_size/(total_size*1.0+0.01))*100;
 						
 						MainPanel.ftp.init();
-						MainFrame.mainPanel.ftp.validate();
+						MainPanel.ftp.validate();
 					}
 				}
 				

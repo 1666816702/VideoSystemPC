@@ -16,6 +16,8 @@ public class MainPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
 	public static FileTablePanel ftp = null;
+	public JButton selectBtn = null;
+	public JButton startBtn = null;
 	
 	private JPanel topPanel = null;
 	private JPanel bodyPanel = null;
@@ -29,8 +31,8 @@ public class MainPanel extends JPanel{
 		topPanel.setBorder(BorderFactory.createEtchedBorder ());
 		topPanel.setLayout(new FlowLayout(30));
 		
-		JButton selectBtn = new JButton("选择文件");
-		JButton startBtn = new JButton("开始上传");
+		selectBtn = new JButton("选择文件");
+		startBtn = new JButton("开始上传");
 		
 		selectBtn.addActionListener(new FileTablePanel());
 		startBtn.addActionListener(new FileTablePanel());

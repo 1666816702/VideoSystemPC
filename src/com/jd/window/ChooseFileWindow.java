@@ -44,7 +44,7 @@ public class ChooseFileWindow extends JFileChooser{
 			
 			fileinfoVector.add(fileinfo);
 		}
-		
+
 		MainFrame.fileinfoVector = fileinfoVector;
 		MainPanel.ftp.init();
 		MainFrame.mainPanel.validate();
