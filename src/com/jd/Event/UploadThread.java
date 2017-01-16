@@ -91,24 +91,26 @@ public class UploadThread extends Thread{
 			{
 				//向网站服务器发送信息
 				String info = sendInfoToWebServer();
-				
-				System.out.println("完成一个");
-				MainFrame.fileinfoVector.get(MainFrame.currentUploadFile).fileStatus = "上传完成";
-				MainFrame.fileinfoVector.get(MainFrame.currentUploadFile).prodrass = 100;
-				
-				if(index < MainFrame.fileinfoVector.size()-1)
+				if(info.equals("ok"))
 				{
-					MainFrame.currentUploadFile++;
-					uploadInit(MainFrame.currentUploadFile);
-				}
-				else{
-					//System.out.println("全部上传完成");
-					MainFrame.isUpload = false;
+					System.out.println("完成一个");
+					MainFrame.fileinfoVector.get(MainFrame.currentUploadFile).fileStatus = "上传完成";
+					MainFrame.fileinfoVector.get(MainFrame.currentUploadFile).prodrass = 100;
 					
-					MainPanel.ftp.init();
-					MainFrame.mainPanel.ftp.validate();
-					
-					this.stop();
+					if(index < MainFrame.fileinfoVector.size()-1)
+					{
+						MainFrame.currentUploadFile++;
+						uploadInit(MainFrame.currentUploadFile);
+					}
+					else{
+						//System.out.println("全部上传完成");
+						MainFrame.isUpload = false;
+						
+						MainPanel.ftp.init();
+						MainFrame.mainPanel.ftp.validate();
+						
+						this.stop();
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -121,21 +123,30 @@ public class UploadThread extends Thread{
 	 */
 	public String sendInfoToWebServer()
 	{
+		String res = null;
 		int video_id = Integer.valueOf(MainFrame.fileinfoVector.get(MainFrame.currentUploadFile).video_id);
 		String video_uuid = MainFrame.fileinfoVector.get(MainFrame.currentUploadFile).video_unique;
 		String video_name = MainFrame.fileinfoVector.get(MainFrame.currentUploadFile).file.getName();
 		
 		try {
-			//获取视频首图地址
-			String res = client.imageGet(video_id,"400_300");
+			String url = "http://localhost:61626/VideoManager/UploadVideo";
+			String param = "videoInfo="+video_id+"_"+video_uuid+"_"+video_name;
+			param += "&token="+"123456789";
+			res = client.doGet(url+"?"+param);
 			
-			System.out.println(res);
+			if(res.equals("ok"))
+			{
+				res = "ok";
+			}
+			else{
+				res = "error";
+			}
 			
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
-		return null;
+		return res;
 	}
 	
 	/*

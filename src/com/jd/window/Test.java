@@ -10,7 +10,12 @@ public class Test {
         String SECRET_KEY = "400c0826066c64f8a3b8c64d55342ea1";
         LetvCloudV1 client = new LetvCloudV1(USER_UNIQUE, SECRET_KEY);
         
-        String res = client.videoUpdate(39778733,"","","",1);
-        System.out.println(res);
+        String url = "http://localhost:61626/VideoManager/UploadVideo";
+		String param = "videoInfo="+123456+"_"+123456+"_"+123456;
+		param += "&token="+"123456789";
+		String res = client.doGet(url+"?"+param);
+		
+		System.out.println(res);
+		
 	}
 }
