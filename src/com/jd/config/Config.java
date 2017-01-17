@@ -9,10 +9,10 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public class Config {
-	public static String USER_UNIQUE = null;
-	public static String SECRET_KEY = null;
-	public static String WEB_SERVER = null;
-	public static String WEB_SERVER_TOKEN = null;
+	public static String USER_UNIQUE = "ievel39qfn";
+	public static String SECRET_KEY = "400c0826066c64f8a3b8c64d55342ea1";
+	public static String WEB_SERVER = "http://video.chejiexun.cn/VideoManager/UploadVideo";
+	public static String WEB_SERVER_TOKEN = "123456789";
 	
 	public Config()
 	{

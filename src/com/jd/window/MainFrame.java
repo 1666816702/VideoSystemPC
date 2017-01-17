@@ -78,7 +78,7 @@ public class MainFrame extends JFrame{
 	    	e.printStackTrace();
 	    }
 		//init config
-		new Config();
+		//new Config();
 		mainFrame = new MainFrame();
 		mainFrame.setVisible(true);
 	}
