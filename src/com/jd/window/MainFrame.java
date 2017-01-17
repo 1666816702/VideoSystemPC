@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
+import com.jd.config.Config;
 import com.jd.model.FileInfo;
 
 public class MainFrame extends JFrame{
@@ -76,7 +77,8 @@ public class MainFrame extends JFrame{
 	    } catch (Exception e) {
 	    	e.printStackTrace();
 	    }
-		
+		//init config
+		new Config();
 		mainFrame = new MainFrame();
 		mainFrame.setVisible(true);
 	}

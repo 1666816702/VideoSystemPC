@@ -11,6 +11,7 @@ import java.util.Map;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import com.jd.config.Config;
 import com.jd.model.FileInfo;
 import com.jd.sdk.LetvCloudV1;
 import com.jd.window.FileTablePanel;
@@ -19,17 +20,14 @@ import com.jd.window.MainPanel;
 
 public class UploadThread extends Thread{
 	
-	public String USER_UNIQUE = "ievel39qfn";
-	public String SECRET_KEY = "400c0826066c64f8a3b8c64d55342ea1";
     public LetvCloudV1 client = null;
-    public boolean isStop = true;
     
 	/*
 	 * 
 	 */
 	public UploadThread()
 	{
-		client = new LetvCloudV1(USER_UNIQUE, SECRET_KEY);
+		client = new LetvCloudV1(Config.USER_UNIQUE, Config.SECRET_KEY);
 		client.format = "json";
 		uploadInit(MainFrame.currentUploadFile);
 	}
@@ -131,9 +129,10 @@ public class UploadThread extends Thread{
 		String video_name = MainFrame.fileinfoVector.get(MainFrame.currentUploadFile).file.getName();
 		
 		try {
-			String url = "http://localhost:61626/VideoManager/UploadVideo";
+			String url = Config.WEB_SERVER;
+			String token = Config.WEB_SERVER_TOKEN;
 			String param = "videoInfo="+video_id+"_"+video_uuid+"_"+URLEncoder.encode(video_name,"UTF-8");
-			param += "&token="+"123456789";
+			param += "&token="+token;
 			res = client.doGet(url+"?"+param);
 			
 			if(res.equals("ok"))

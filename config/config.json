@@ -1,0 +1,8 @@
+[
+	{
+		"user_uniqe":"ievel39qfn",
+		"secret_key":"400c0826066c64f8a3b8c64d55342ea1",
+		"web_server":"http://localhost:61626/VideoManager/UploadVideo",
+		"web_server_token":"123456789"
+	}
+]
