@@ -49,7 +49,7 @@ public class FileTablePanel extends JPanel implements ActionListener{
 				
 				FileInfo fileinfo = MainFrame.fileinfoVector.get(MainFrame.currentUploadFile);
 				
-				DecimalFormat df = new DecimalFormat("##");
+				DecimalFormat df = new DecimalFormat("#0.0");
 				labels.get(MainFrame.currentUploadFile).get(3).setText(df.format(fileinfo.prodrass)+"%");
 				labels.get(MainFrame.currentUploadFile).get(4).setText(fileinfo.fileStatus);
 			}

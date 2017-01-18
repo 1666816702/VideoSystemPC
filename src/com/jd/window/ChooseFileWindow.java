@@ -20,8 +20,7 @@ public class ChooseFileWindow extends JFileChooser{
 		//
 		this.setMultiSelectionEnabled(true);
 		//
-		this.setFileFilter(new FileNameExtensionFilter("文件格式","mp4","flv"));
-		
+		this.setFileFilter(new FileNameExtensionFilter("文件格式","mp4","flv","mov","m4v","mkv","vob","qt","divx","cpk","fli","flc","mod"));
 		this.showOpenDialog(this);
 	}
 	
